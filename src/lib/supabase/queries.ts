@@ -91,6 +91,7 @@ export async function getTopScoredJobsCount(
     .eq("job_state", "new")
     .gte("resume_score", minScore) // Apply minScore filter
     .lte("resume_score", maxScore); // Apply maxScore filter
+    .not("customized_resume_id", "is", null)
 
   // Add provider filter if specified
   if (provider) {
