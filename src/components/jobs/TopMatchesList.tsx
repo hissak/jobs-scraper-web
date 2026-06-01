@@ -35,7 +35,7 @@ export default function TopMatchesList({
   const router = useRouter();
   const searchParams = useSearchParams(); // Get searchParams
 
-  useEffect(() => {
+useEffect(() => {
     const selectedJobIdFromUrl = searchParams.get("selectedJobId");
     let jobToSelect: Job | null = null;
 
@@ -49,14 +49,12 @@ export default function TopMatchesList({
     // and there are jobs in the list, default to the first job.
     if (!jobToSelect && jobs.length > 0) {
       jobToSelect = jobs[0];
-      // Update URL with the default selected job ID if it's missing
-      if (!selectedJobIdFromUrl) {
-        const params = new URLSearchParams(searchParams.toString());
-        params.set("selectedJobId", jobToSelect.job_id);
-        router.replace(`${window.location.pathname}?${params.toString()}`, {
-          scroll: false,
-        });
-      }
+      // Always update URL with the correct selected job ID for this page
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("selectedJobId", jobToSelect.job_id);
+      router.replace(`${window.location.pathname}?${params.toString()}`, {
+        scroll: false,
+      });
     }
     // If jobs list is empty, ensure jobToSelect is null.
     else if (jobs.length === 0) {
