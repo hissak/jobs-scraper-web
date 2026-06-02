@@ -128,7 +128,7 @@ export default function CustomPdfViewer({
       let fileName = fileUrl.split("/").pop() || "document.pdf";
       fileName = fileName.replace(/\.[^/.]+$/, "") + ".pdf";
 
-      fetch(effectiveFileUrl.split("?")[0])
+      fetch(effectiveFileUrl)
         .then((response) => response.blob())
         .then((blob) => {
           const pdfBlob = new Blob([blob], {
